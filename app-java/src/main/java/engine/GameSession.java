@@ -3,6 +3,7 @@ package engine;
 import config.AppConfig;
 import ui.GameUI;
 import ui.Interactive;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ public class GameSession {
     private final Set<Character> letters;
     private final int maxAttempts = AppConfig.MAX_ATTEMPTS;
     private int attemptsUsed = 0;
+    private Set<Character> usedLetters = new HashSet<>();
     private Set<Character> guessedLetters = new HashSet<>();
     private final GameUI gameUI;
     private boolean isWordGuessed = false;
@@ -51,7 +53,8 @@ public class GameSession {
             guessedLetters.add(letter);
             if (guessedLetters.size() == letters.size()) isWordGuessed = true;
         } else {
-            attemptsUsed++;
+            if (!usedLetters.contains(letter)) attemptsUsed++;
+            usedLetters.add(letter);
         }
 
         return getResultAttemptForInteractive();
