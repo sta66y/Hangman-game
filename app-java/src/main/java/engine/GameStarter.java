@@ -2,6 +2,7 @@ package engine;
 
 import model.Category;
 import model.Difficulty;
+import ui.Interactive;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +15,7 @@ public class GameStarter {
     private Category category;
     private Scanner scanner = new Scanner(System.in);
     private final Random random;
+    private GameSession gameSession;
 
     public GameStarter() {
         dictionary = new Dictionary();
@@ -24,7 +26,8 @@ public class GameStarter {
         chooseDifficulty();
         chooseCategory();
         getWord();
-        System.out.println(word);
+        gameSession = new GameSession(word, new Interactive());
+        gameSession.start();
     }
 
     private void chooseDifficulty() {
