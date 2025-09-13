@@ -17,7 +17,7 @@ public class GameSession {
     private final boolean isInteractive;
 
     public GameSession(String word, GameUI gameUI) {
-        this.word = word;
+        this.word = word.toLowerCase();
         this.gameUI = gameUI;
 
         letters = new HashSet<>();

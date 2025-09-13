@@ -1,13 +1,14 @@
 package ui;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Interactive implements GameUI {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public String getInput() {
-        return scanner.nextLine();
+        return removeCaseSensitivity(scanner.nextLine());
     }
 
     @Override
@@ -27,6 +28,11 @@ public class Interactive implements GameUI {
         } else {
             System.out.println("Эх, анлак, братишка. Слово было: " + answer);
         }
+    }
+
+    @Override
+    public String removeCaseSensitivity(String input) {
+        return input.toLowerCase();
     }
 
 }

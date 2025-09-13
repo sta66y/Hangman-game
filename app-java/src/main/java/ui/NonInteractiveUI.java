@@ -9,7 +9,7 @@ public class NonInteractiveUI implements GameUI {
 
     @Override
     public String getInput() {
-        return ARG;
+        return removeCaseSensitivity(ARG);
     }
 
     @Override
@@ -25,5 +25,10 @@ public class NonInteractiveUI implements GameUI {
     @Override
     public void showGameOver(boolean isWordGuess, String answer) {
         System.out.print((isWordGuess) ? "POS" : "NEG");
+    }
+
+    @Override
+    public String removeCaseSensitivity(String input) {
+        return input.toLowerCase();
     }
 }
