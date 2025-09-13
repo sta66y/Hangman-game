@@ -30,6 +30,7 @@ public class GameSession {
 
     public void start() {
         gameUI.showMessage("Максимальное количество попыток: " + maxAttempts);
+        gameUI.showMessage("Количество букв в загаданном слове: " + word.length());
         while (!isGameOver()) {
             gameUI.showResult(attempt());
 
@@ -44,7 +45,7 @@ public class GameSession {
     }
 
     private String attemptInteractive(String input) {
-        if (input.length() != 1) throw new IllegalArgumentException("Вы ввели больше одной буквы");
+        if (input.length() != 1) throw new IllegalArgumentException("Некорректный ввод");
         char letter = input.toCharArray()[0];
         if (letters.contains(letter)) {
             guessedLetters.add(letter);
