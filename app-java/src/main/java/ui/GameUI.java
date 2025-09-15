@@ -6,4 +6,5 @@ public interface GameUI {
     void showMessage(String message);
     void showGameOver(boolean isWordGuess, String answer);
     String removeCaseSensitivity(String input);
+    void showMessage(Object o);
 }

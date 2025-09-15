@@ -35,4 +35,9 @@ public class Interactive implements GameUI {
         return input.toLowerCase();
     }
 
+    @Override
+    public void showMessage(Object o) {
+        System.out.println(o);
+    }
+
 }

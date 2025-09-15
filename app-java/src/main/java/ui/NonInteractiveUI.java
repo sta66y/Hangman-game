@@ -31,4 +31,9 @@ public class NonInteractiveUI implements GameUI {
     public String removeCaseSensitivity(String input) {
         return input.toLowerCase();
     }
+
+    @Override
+    public void showMessage(Object o) {
+
+    }
 }
