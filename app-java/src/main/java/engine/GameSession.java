@@ -40,7 +40,6 @@ public class GameSession {
         gameUI.showMessage(hangmanRenderer.render(0, maxAttempts));
         while (!isGameOver()) {
             gameUI.showResult(attempt());
-            gameUI.showMessage(hangmanRenderer.render(attemptsUsed, maxAttempts));
         }
         gameUI.showGameOver(isWordGuessed, word);
     }
@@ -60,6 +59,7 @@ public class GameSession {
         } else {
             if (!usedLetters.contains(letter)) attemptsUsed++;
             usedLetters.add(letter);
+            gameUI.showMessage(hangmanRenderer.render(attemptsUsed, maxAttempts));
         }
 
         return getResultAttemptForInteractive();
