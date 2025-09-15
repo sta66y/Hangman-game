@@ -3,7 +3,6 @@ package engine;
 import config.AppConfig;
 import ui.GameUI;
 import ui.Interactive;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,6 +59,7 @@ public class GameSession {
             if (!usedLetters.contains(letter)) attemptsUsed++;
             usedLetters.add(letter);
             gameUI.showMessage(hangmanRenderer.render(attemptsUsed, maxAttempts));
+            gameUI.showMessage("Осталось " + (maxAttempts - attemptsUsed) + " попыток(ка)(ки)");
         }
 
         return getResultAttemptForInteractive();
