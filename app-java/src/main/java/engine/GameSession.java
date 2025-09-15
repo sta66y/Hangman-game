@@ -19,6 +19,9 @@ public class GameSession {
     private final boolean isInteractive;
 
     public GameSession(String word, GameUI gameUI) {
+        if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
+        if (gameUI == null) throw new IllegalArgumentException("Интерфейс не обнаружен");
+
         this.word = word.toLowerCase();
         this.gameUI = gameUI;
 
@@ -35,7 +38,6 @@ public class GameSession {
         gameUI.showMessage("Количество букв в загаданном слове: " + word.length());
         while (!isGameOver()) {
             gameUI.showResult(attempt());
-
         }
         gameUI.showGameOver(isWordGuessed, word);
     }
