@@ -17,6 +17,7 @@ public class GameSession {
     private final GameUI gameUI;
     private boolean isWordGuessed = false;
     private final boolean isInteractive;
+    private final HangmanRenderer hangmanRenderer = new HangmanRenderer();
 
     public GameSession(String word, GameUI gameUI) {
         if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
@@ -36,8 +37,10 @@ public class GameSession {
     public void start() {
         gameUI.showMessage("Максимальное количество попыток: " + maxAttempts);
         gameUI.showMessage("Количество букв в загаданном слове: " + word.length());
+        gameUI.showMessage(hangmanRenderer.render(0, maxAttempts));
         while (!isGameOver()) {
             gameUI.showResult(attempt());
+            gameUI.showMessage(hangmanRenderer.render(attemptsUsed, maxAttempts));
         }
         gameUI.showGameOver(isWordGuessed, word);
     }
