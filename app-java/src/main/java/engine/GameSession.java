@@ -87,7 +87,7 @@ public class GameSession {
         StringBuilder sb = new StringBuilder();
         for (char ch : word.toCharArray()) {
             if (guessedLetters.contains(ch)) sb.append(ch);
-            else sb.append("*");
+            else sb.append("-");
         }
         return sb.toString();
     }
@@ -95,14 +95,4 @@ public class GameSession {
     private boolean isGameOver() {
         return attemptsUsed >= maxAttempts || isWordGuessed;
     }
-
-
-
-
-
-
-
-
-
-
 }
