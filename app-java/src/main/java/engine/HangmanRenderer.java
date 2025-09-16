@@ -54,7 +54,7 @@ public class HangmanRenderer {
         if (cntAttempts <= 0) return stages[0];
         if (cntAttempts >= maxAttempts) return stages[stages.length - 1];
 
-        int index = (int) Math.round(((double) cntAttempts / maxAttempts) * (stages.length - 1));
+        int index = 1 + (int) Math.floor(((double) cntAttempts / maxAttempts) * (stages.length - 2));
         return stages[index];
     }
 }
