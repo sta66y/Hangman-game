@@ -1,10 +1,17 @@
 package ui;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Interactive implements GameUI {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public Interactive(){
+        scanner = new Scanner(System.in);
+    }
+
+    public Interactive(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     @Override
     public String getInput() {

@@ -1,0 +1,76 @@
+package ui;
+
+import model.Category;
+import model.Difficulty;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ui.Interactive;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class InteractiveTest {
+    private Interactive interactive = new Interactive();
+    private ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(output));
+    }
+    @Test
+    void testGetInput() {
+        Scanner scanner = new Scanner("Lop aTa");
+        Interactive interactiveWithScanner = new Interactive(scanner);
+
+        assertEquals("lop ata", interactiveWithScanner.getInput());
+    }
+
+    @Test
+    void testRemoveCaseSensitivity() {
+        assertEquals("qqqq qqqq", interactive.removeCaseSensitivity("qQqQ qQqQ"));
+    }
+
+    @Test
+    void testShowResult() {
+        interactive.showResult("result");
+        assertEquals("result\n", output.toString());
+    }
+
+    @Test
+    void testShowMessageWithoutArgument() {
+        interactive.showMessage("message");
+        assertEquals("message\n", output.toString());
+    }
+
+    @Test
+    void testShowMessageWithArgument() {
+        interactive.showMessage(Difficulty.EASY);
+        assertEquals("EASY\n", output.toString());
+    }
+
+    @Test
+    void showGameOver_ShouldPrintCongratulations_IfWordGuessed() {
+        interactive.showGameOver(true, "");
+        assertEquals("Слово угадано!\n", output.toString());
+    }
+
+    @Test
+    void showGameOver_ShouldPrintAnswer_IfWordNotGuessed() {
+        interactive.showGameOver(false, "bugaga");
+        assertEquals("Эх, анлак, братишка. Слово было: bugaga\n", output.toString());
+    }
+
+    @Test
+    void testGetAnAttempt() {
+        Scanner scanner = new Scanner("фывфы\n \na");
+        Interactive interactiveWithScanner = new Interactive(scanner);
+        assertEquals("a", interactiveWithScanner.getAnAttempt());
+    }
+
+    @AfterEach
+    void cleanUpStreams() {
+        System.setOut(null);
+    }
+}
