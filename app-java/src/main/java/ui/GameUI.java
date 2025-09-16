@@ -7,4 +7,5 @@ public interface GameUI {
     void showGameOver(boolean isWordGuess, String answer);
     String removeCaseSensitivity(String input);
     void showMessage(Object o);
+    String getAnAttempt();
 }

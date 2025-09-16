@@ -40,4 +40,16 @@ public class Interactive implements GameUI {
         System.out.println(o);
     }
 
+    @Override
+    public String getAnAttempt() {
+        while (true) {
+            String input = getInput();
+            if (input.matches("[a-z]") || input.matches("[а-я]")) {
+                return input;
+            } else {
+                System.out.println("Неверный ввод! Введи ток одну букву русскую или английскую: ");
+            }
+        }
+    }
+
 }

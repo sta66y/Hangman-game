@@ -36,4 +36,9 @@ public class NonInteractiveUI implements GameUI {
     public void showMessage(Object o) {
 
     }
+
+    @Override
+    public String getAnAttempt() {
+        return getInput();
+    }
 }

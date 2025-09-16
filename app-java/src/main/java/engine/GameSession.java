@@ -37,7 +37,7 @@ public class GameSession {
         renderHangman();
 
         while (!isGameOver()) {
-            String input = gameUI.getInput();
+            String input = gameUI.getAnAttempt();
             String result = isInteractive ? attemptInteractive(input) : attemptNonInteractive(input);
             gameUI.showResult(result);
         }
@@ -52,7 +52,6 @@ public class GameSession {
 
 
     private String attemptInteractive(String input) {
-        if (input.length() != 1) throw new IllegalArgumentException("Некорректный ввод");
         char letter = input.charAt(0);
 
         if (guessedLetters.contains(letter) || usedLetters.contains(letter)) return getResultForInteractive();
