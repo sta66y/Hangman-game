@@ -9,7 +9,7 @@ import java.util.Set;
 public class GameSession {
     private final String word;
     private final Set<Character> letters = new HashSet<>();
-    private final int maxAttempts = AppConfig.MAX_ATTEMPTS;
+    private final int maxAttempts;
     private int attemptsUsed = 0;
     private final Set<Character> usedLetters = new HashSet<>();
     private final Set<Character> guessedLetters = new HashSet<>();
@@ -24,6 +24,22 @@ public class GameSession {
 
         this.word = word.toLowerCase();
         this.gameUI = gameUI;
+        maxAttempts = AppConfig.MAX_ATTEMPTS;
+
+        for (char ch : word.toCharArray()) {
+            letters.add(ch);
+        }
+
+        isInteractive = gameUI instanceof Interactive;
+    }
+
+    public GameSession(String word, GameUI gameUI, int maxAttempts) {
+        if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
+        if (gameUI == null) throw new IllegalArgumentException("Интерфейс не обнаружен");
+
+        this.word = word.toLowerCase();
+        this.gameUI = gameUI;
+        this.maxAttempts = maxAttempts;
 
         for (char ch : word.toCharArray()) {
             letters.add(ch);
