@@ -6,8 +6,8 @@ import ui.GameUI;
 import java.util.Random;
 
 public class GameStarter {
-    private final Dictionary dictionary = new Dictionary();
-    private final Random random = new Random();
+    private final Dictionary dictionary ;
+    private final Random random;
     private final GameUI gameUI;
 
     private String word;
@@ -17,6 +17,15 @@ public class GameStarter {
     public GameStarter(GameUI gameUI) {
         if (gameUI == null) throw new IllegalArgumentException("GameUI не может быть null");
         this.gameUI = gameUI;
+        this.random = new Random();
+        this.dictionary = new Dictionary();
+    }
+
+    public GameStarter(GameUI gameUI, Random random, Dictionary dictionary) {
+        if (gameUI == null) throw new IllegalArgumentException("GameUI не может быть null");
+        this.gameUI = gameUI;
+        this.random = random;
+        this.dictionary = dictionary;
     }
 
     public void start() {
