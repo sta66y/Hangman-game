@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class DictionaryTest {
@@ -22,9 +25,10 @@ class DictionaryTest {
 
     @Test
     void getRandomWord_ShouldReturnCorrectWord() {
-        when(mockRandom.nextInt(5)).thenReturn(1);
+        when(mockRandom.nextInt(anyInt())).thenReturn(1);
         String word = dictionary.getRandomWord(Category.FRUITS, Difficulty.EASY);
         assertEquals("pear", word);
+        verify(mockRandom, times(1)).nextInt(anyInt());
     }
 
     @Test

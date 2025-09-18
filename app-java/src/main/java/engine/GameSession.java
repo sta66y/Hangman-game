@@ -19,18 +19,7 @@ public class GameSession {
     private final HangmanRenderer hangmanRenderer = new HangmanRenderer();
 
     public GameSession(String word, GameUI gameUI) {
-        if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
-        if (gameUI == null) throw new IllegalArgumentException("Интерфейс не обнаружен");
-
-        this.word = word.toLowerCase();
-        this.gameUI = gameUI;
-        maxAttempts = AppConfig.MAX_ATTEMPTS;
-
-        for (char ch : word.toCharArray()) {
-            letters.add(ch);
-        }
-
-        isInteractive = gameUI instanceof Interactive;
+        this(word, gameUI, AppConfig.MAX_ATTEMPTS);
     }
 
     public GameSession(String word, GameUI gameUI, int maxAttempts) {

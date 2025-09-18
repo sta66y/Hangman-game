@@ -2,13 +2,9 @@ package engine;
 
 import model.Category;
 import model.Difficulty;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import ui.GameUI;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +28,7 @@ public class GameStarterTest {
     private GameStarter gameStarter = new GameStarter(mockUI, mockRandom, mockDictionary);
 
     @Test
-    void GameStarter_ShouldThrowException_IfGameUIIsNull() {
+    void constructor_ShouldThrowException_IfGameUIIsNull() {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
             new GameStarter(null));
         assertEquals("GameUI не может быть null", ex.getMessage());
