@@ -27,6 +27,10 @@ public class GameSessionTest {
             new GameSession(null, mockUI));
         assertEquals("Слова не обнаружено", ex.getMessage());
     }
+    @Test
+    void constructor_shouldThrowException_IfWordIsReserved() {
+        assertThrows(IllegalArgumentException.class, () -> new GameSession(new WordHint("подсказка"), mockUI));
+    }
 
     @Test
     void constructor_shouldThrowException_IfUIIsNull() {

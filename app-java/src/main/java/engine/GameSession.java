@@ -24,6 +24,7 @@ public class GameSession {
 
     public GameSession(WordHint word, GameUI gameUI, int maxAttempts) {
         if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
+        if (word.getWord().equals("подсказка")) throw new IllegalArgumentException("эээ, это слово зарезервировано");
         if (gameUI == null) throw new IllegalArgumentException("Интерфейс не обнаружен");
 
         this.word = word;
@@ -43,7 +44,6 @@ public class GameSession {
 
         while (!isGameOver()) {
             String input = input();
-
             String result = isInteractive ? attemptInteractive(input) : attemptNonInteractive(input);
             gameUI.showResult(result);
         }
