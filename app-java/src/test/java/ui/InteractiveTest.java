@@ -1,5 +1,6 @@
 package ui;
 
+import engine.WordHint;
 import model.Category;
 import model.Difficulty;
 import org.junit.jupiter.api.AfterEach;
@@ -52,13 +53,13 @@ public class InteractiveTest {
 
     @Test
     void showGameOver_ShouldPrintCongratulations_IfWordGuessed() {
-        interactive.showGameOver(true, "");
+        interactive.showGameOver(true, new WordHint(""));
         assertEquals("Слово угадано!\n", output.toString());
     }
 
     @Test
     void showGameOver_ShouldPrintAnswer_IfWordNotGuessed() {
-        interactive.showGameOver(false, "bugaga");
+        interactive.showGameOver(false, new WordHint("bugaga"));
         assertEquals("Эх, анлак, братишка. Слово было: bugaga\n", output.toString());
     }
 

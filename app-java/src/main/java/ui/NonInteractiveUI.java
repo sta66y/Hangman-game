@@ -1,5 +1,7 @@
 package ui;
 
+import engine.WordHint;
+
 public class NonInteractiveUI implements GameUI {
     private final String ARG;
 
@@ -23,7 +25,7 @@ public class NonInteractiveUI implements GameUI {
     }
 
     @Override
-    public void showGameOver(boolean isWordGuess, String answer) {
+    public void showGameOver(boolean isWordGuess, WordHint answer) {
         System.out.print((isWordGuess) ? "POS" : "NEG");
     }
 

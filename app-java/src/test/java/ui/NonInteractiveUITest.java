@@ -1,5 +1,6 @@
 package ui;
 
+import engine.WordHint;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,13 +36,13 @@ public class NonInteractiveUITest {
 
     @Test
     void showGameOver_ShouldReturnPOS_IfWordGuessed() {
-        nonInteractiveUI.showGameOver(true, "sasuke");
+        nonInteractiveUI.showGameOver(true, new WordHint("sasuke"));
         assertEquals("POS", output.toString());
     }
 
     @Test
     void showGameOver_ShouldReturnNEG_IfWordUnGuessed() {
-        nonInteractiveUI.showGameOver(false, "sasuke");
+        nonInteractiveUI.showGameOver(false, new WordHint("sasuke"));
         assertEquals("NEG", output.toString());
     }
 

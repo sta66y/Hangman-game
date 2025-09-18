@@ -36,11 +36,12 @@ public class GameStarterTest {
 
     @Test
     void start_withValidEnumInputs_createsGameSessionWithChosenValues() {
+        WordHint wordHint = new WordHint("dog");
         when(mockUI.getInput())
             .thenReturn("easy")
             .thenReturn("animals");
 
-        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.EASY)).thenReturn("dog");
+        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.EASY)).thenReturn(wordHint);
 
         AtomicReference<Object[]> ctorArgs = new AtomicReference<>();
 
@@ -56,7 +57,7 @@ public class GameStarterTest {
             Object[] args = ctorArgs.get();
             assertNotNull(args);
 
-            assertEquals("dog", args[0]);
+            assertEquals(wordHint, args[0]);
 
             assertSame(mockUI, args[1]);
         }
@@ -64,13 +65,14 @@ public class GameStarterTest {
 
     @Test
     void start_whenDifficultyEmpty_usesRandomChoice() {
+        WordHint wordHint = new WordHint("monkey");
         when(mockUI.getInput())
             .thenReturn("")
             .thenReturn("animals");
 
         when(mockRandom.nextInt(anyInt())).thenReturn(1);
 
-        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.MEDIUM)).thenReturn("monkey");
+        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.MEDIUM)).thenReturn(wordHint);
 
         AtomicReference<Object[]> ctorArgs = new AtomicReference<>();
 
@@ -88,20 +90,21 @@ public class GameStarterTest {
             verify(mocked.constructed().get(0)).start();
 
             Object[] args = ctorArgs.get();
-            assertEquals("monkey", args[0]);
+            assertEquals(wordHint, args[0]);
             assertSame(mockUI, args[1]);
         }
     }
 
     @Test
     void start_withInvalidThenValidInputs_loopsUntilValid() {
+        WordHint wordHint = new WordHint("dog");
         when(mockUI.getInput())
             .thenReturn("incorrect input")
             .thenReturn("easy")
             .thenReturn("incorrect input")
             .thenReturn("animals");
 
-        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.EASY)).thenReturn("dog");
+        when(mockDictionary.getRandomWord(Category.ANIMALS, Difficulty.EASY)).thenReturn(wordHint);
 
         AtomicReference<Object[]> ctorArgs = new AtomicReference<>();
 
@@ -117,7 +120,7 @@ public class GameStarterTest {
             Object[] args = ctorArgs.get();
             assertNotNull(args);
 
-            assertEquals("dog", args[0]);
+            assertEquals(wordHint, args[0]);
 
             assertSame(mockUI, args[1]);
         }

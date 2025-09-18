@@ -10,7 +10,7 @@ public class GameStarter {
     private final Random random;
     private final GameUI gameUI;
 
-    private String word;
+    private WordHint word;
     private Difficulty difficulty;
     private Category category;
 

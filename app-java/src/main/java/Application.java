@@ -1,5 +1,6 @@
 import engine.GameSession;
 import engine.GameStarter;
+import engine.WordHint;
 import ui.GameUI;
 import ui.Interactive;
 import ui.NonInteractiveUI;
@@ -7,7 +8,7 @@ import ui.NonInteractiveUI;
 public class Application {
     public static void main(String[] args) {
         if (args.length == 2) {
-            String word = args[0];
+            WordHint word = new WordHint(args[0]);
             GameUI nonInteractiveUI = new NonInteractiveUI(args[1]);
             GameSession gameSession = new GameSession(word, nonInteractiveUI);
             gameSession.start();

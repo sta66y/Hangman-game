@@ -1,5 +1,6 @@
 package ui;
 
+import engine.WordHint;
 import java.util.Scanner;
 
 public class Interactive implements GameUI {
@@ -29,11 +30,11 @@ public class Interactive implements GameUI {
     }
 
     @Override
-    public void showGameOver(boolean isWordGuess, String answer) {
+    public void showGameOver(boolean isWordGuess, WordHint answer) {
         if (isWordGuess) {
             System.out.println("Слово угадано!");
         } else {
-            System.out.println("Эх, анлак, братишка. Слово было: " + answer);
+            System.out.println("Эх, анлак, братишка. Слово было: " + answer.getWord());
         }
     }
 
@@ -51,10 +52,10 @@ public class Interactive implements GameUI {
     public String getAnAttempt() {
         while (true) {
             String input = getInput();
-            if (input.matches("[a-z]") || input.matches("[а-я]")) {
+            if (input.matches("[а-я]") || input.equals("подсказка")) {
                 return input;
             } else {
-                System.out.println("Неверный ввод! Введи ток одну букву русскую или английскую: ");
+                System.out.println("Неверный ввод! Введи ток одну русскую букву: ");
             }
         }
     }

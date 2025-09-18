@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameSession {
-    private final String word;
+    private final WordHint word;
     private final Set<Character> letters = new HashSet<>();
     private final int maxAttempts;
     private int attemptsUsed = 0;
@@ -18,19 +18,19 @@ public class GameSession {
     private final boolean isInteractive;
     private final HangmanRenderer hangmanRenderer = new HangmanRenderer();
 
-    public GameSession(String word, GameUI gameUI) {
+    public GameSession(WordHint word, GameUI gameUI) {
         this(word, gameUI, AppConfig.MAX_ATTEMPTS);
     }
 
-    public GameSession(String word, GameUI gameUI, int maxAttempts) {
+    public GameSession(WordHint word, GameUI gameUI, int maxAttempts) {
         if (word == null) throw new IllegalArgumentException("Слова не обнаружено");
         if (gameUI == null) throw new IllegalArgumentException("Интерфейс не обнаружен");
 
-        this.word = word.toLowerCase();
+        this.word = word;
         this.gameUI = gameUI;
         this.maxAttempts = maxAttempts;
 
-        for (char ch : word.toCharArray()) {
+        for (char ch : word.getWord().toCharArray()) {
             letters.add(ch);
         }
 
@@ -42,7 +42,8 @@ public class GameSession {
         renderHangman();
 
         while (!isGameOver()) {
-            String input = gameUI.getAnAttempt();
+            String input = input();
+
             String result = isInteractive ? attemptInteractive(input) : attemptNonInteractive(input);
             gameUI.showResult(result);
         }
@@ -51,7 +52,8 @@ public class GameSession {
 
     private void showInitialInfo() {
         gameUI.showMessage("Максимальное количество попыток: " + maxAttempts);
-        if (isInteractive) gameUI.showMessage("Количество букв в загаданном слове: " + word.length());
+        if (isInteractive) gameUI.showMessage("Количество букв в загаданном слове: " + word.getLength());
+        gameUI.showMessage("Если нужна подсказка, пиши - подсказка");
     }
 
 
@@ -76,7 +78,7 @@ public class GameSession {
 
     private String getResultForInteractive() {
         StringBuilder sb = new StringBuilder();
-        for (char ch : word.toCharArray()) {
+        for (char ch : word.getWord().toCharArray()) {
             sb.append(guessedLetters.contains(ch) ? ch : "-");
         }
         return sb.toString();
@@ -86,7 +88,7 @@ public class GameSession {
 
 
     private String attemptNonInteractive(String input) {
-        if (input.length() != word.length()) throw new IllegalArgumentException(
+        if (input.length() != word.getLength()) throw new IllegalArgumentException(
             "Длина загаданного слова не эквивалентна длине попытки");
 
         attemptsUsed = maxAttempts;
@@ -96,10 +98,10 @@ public class GameSession {
     private String getResultForNonInteractive(String input) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
-            sb.append(input.charAt(i) == word.charAt(i) ? word.charAt(i) : '*');
+            sb.append(input.charAt(i) == word.getWord().charAt(i) ? word.getWord().charAt(i) : '*');
         }
 
-        isWordGuessed = word.equals(input);
+        isWordGuessed = word.getWord().equals(input);
         return sb.toString();
     }
 
@@ -109,6 +111,15 @@ public class GameSession {
 
     private void renderHangman() {
         gameUI.showMessage(hangmanRenderer.render(attemptsUsed, maxAttempts));
+    }
+
+    private String input() {
+        while (true) {
+            String input = gameUI.getAnAttempt();
+            if (input.equals("подсказка")) {
+                gameUI.showMessage(word.getHint());
+            } else return input;
+        }
     }
 
 }

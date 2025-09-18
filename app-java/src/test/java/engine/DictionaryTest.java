@@ -26,8 +26,8 @@ class DictionaryTest {
     @Test
     void getRandomWord_ShouldReturnCorrectWord() {
         when(mockRandom.nextInt(anyInt())).thenReturn(1);
-        String word = dictionary.getRandomWord(Category.FRUITS, Difficulty.EASY);
-        assertEquals("pear", word);
+        WordHint word = dictionary.getRandomWord(Category.FRUITS, Difficulty.EASY);
+        assertEquals("груша", word.getWord());
         verify(mockRandom, times(1)).nextInt(anyInt());
     }
 
