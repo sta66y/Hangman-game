@@ -1,7 +1,8 @@
 package engine;
 
-import model.Category;
-import model.Difficulty;
+import models.Category;
+import models.Difficulty;
+import models.WordHint;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 import ui.GameUI;
@@ -25,12 +26,12 @@ public class GameStarterTest {
     private GameUI mockUI = mock(GameUI.class);
     private Dictionary mockDictionary = mock(Dictionary.class);
 
-    private GameStarter gameStarter = new GameStarter(mockUI, mockRandom, mockDictionary);
+    private GameStarter gameStarter = GameStarter.withRandomGameUIAndDictionary(mockUI, mockRandom, mockDictionary);
 
     @Test
     void constructor_ShouldThrowException_IfGameUIIsNull() {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
-            new GameStarter(null));
+            GameStarter.withGameUI(null));
         assertEquals("GameUI не может быть null", ex.getMessage());
     }
 
