@@ -1,5 +1,6 @@
 package ui;
 
+import engine.InputValidator;
 import models.WordHint;
 import java.util.Scanner;
 
@@ -21,6 +22,12 @@ public class Interactive implements GameUI {
     @Override
     public String getInput() {
         return removeCaseSensitivity(scanner.nextLine());
+    }
+
+    @Override
+    public String getInput(String message) {
+        showMessage(message);
+        return getInput();
     }
 
     @Override
@@ -56,12 +63,17 @@ public class Interactive implements GameUI {
     public String getAnAttempt() {
         while (true) {
             String input = getInput();
-            if (input.matches("[а-я]") || input.equals("подсказка")) {
-                return input;
-            } else {
-                System.out.println("Неверный ввод! Введи ток одну русскую букву: ");
+            if (InputValidator.isHint(input)) {
+                return "подсказка";
+            }
+            try {
+                char letter = InputValidator.validateLetter(input);
+                return String.valueOf(letter);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
+
 
 }

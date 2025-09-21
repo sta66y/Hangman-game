@@ -117,6 +117,7 @@ public class GameSession {
         }
     }
 
+
     private boolean isWordGuessed() {
         for (char ch : word.getWord().toCharArray()) {
             if (!guessedLetters.contains(ch)) {

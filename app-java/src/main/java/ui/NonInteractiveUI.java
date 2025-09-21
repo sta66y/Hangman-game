@@ -15,6 +15,11 @@ public class NonInteractiveUI implements GameUI {
     }
 
     @Override
+    public String getInput(String message) {
+        return getInput();
+    }
+
+    @Override
     public void showResult(String result) {
         System.out.print(result + ";");
     }
