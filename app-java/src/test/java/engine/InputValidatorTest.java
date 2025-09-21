@@ -14,7 +14,7 @@ class InputValidatorTest {
 
     @Test
     void isHint_ShouldReturnFalse_ForIncorrectInput() {
-        assertFalse(InputValidator.isHint("asd"));
+        assertFalse(InputValidator.isHint("asdd"));
         assertFalse(InputValidator.isHint(""));
     }
 
