@@ -1,7 +1,8 @@
 package engine;
 
-import model.Category;
-import model.Difficulty;
+import models.Category;
+import models.Difficulty;
+import models.WordHint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ class DictionaryTest {
     @BeforeEach
     void setup() {
         mockRandom = mock(Random.class);
-        dictionary = new Dictionary(mockRandom);
+        dictionary = Dictionary.withRandom(mockRandom);
     }
 
     @Test
@@ -47,7 +48,7 @@ class DictionaryTest {
 
     @Test
     void getRandomWord_ShouldThrowsException_IfNoWords() {
-        Dictionary emptyDictionary = new Dictionary(new HashMap<>());
+        Dictionary emptyDictionary = Dictionary.withWords(new HashMap<>());
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
             emptyDictionary.getRandomWord(Category.FRUITS, Difficulty.EASY));
         assertEquals("Слов нет, гуляй", ex.getMessage());
