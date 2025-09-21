@@ -1,6 +1,6 @@
 import engine.GameSession;
 import engine.GameStarter;
-import engine.WordHint;
+import models.WordHint;
 import ui.GameUI;
 import ui.Interactive;
 import ui.NonInteractiveUI;
@@ -13,8 +13,8 @@ public class Application {
             GameSession gameSession = new GameSession(word, nonInteractiveUI);
             gameSession.start();
         } else if (args.length == 0) {
-            GameUI interactiveUI = new Interactive();
-            GameStarter gameStarter = new GameStarter(interactiveUI);
+            GameUI interactiveUI = Interactive.withoutScanner();
+            GameStarter gameStarter = GameStarter.withGameUI(interactiveUI);
             gameStarter.start();
         } else {
             throw new IllegalArgumentException("Количество аргументов должно быть 0 или 2");

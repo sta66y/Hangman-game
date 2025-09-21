@@ -1,6 +1,6 @@
 package ui;
 
-import engine.WordHint;
+import models.WordHint;
 
 public interface GameUI {
     String getInput();

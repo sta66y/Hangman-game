@@ -1,6 +1,6 @@
 package ui;
 
-import engine.WordHint;
+import models.WordHint;
 
 public class NonInteractiveUI implements GameUI {
     private final String ARG;

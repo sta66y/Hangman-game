@@ -1,19 +1,17 @@
 package ui;
 
-import engine.WordHint;
-import model.Category;
-import model.Difficulty;
+import models.WordHint;
+import models.Difficulty;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.Interactive;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InteractiveTest {
-    private Interactive interactive = new Interactive();
+    private Interactive interactive = Interactive.withoutScanner();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -23,7 +21,7 @@ public class InteractiveTest {
     @Test
     void testGetInput() {
         Scanner scanner = new Scanner("Lop aTa");
-        Interactive interactiveWithScanner = new Interactive(scanner);
+        Interactive interactiveWithScanner = Interactive.withScanner(scanner);
 
         assertEquals("lop ata", interactiveWithScanner.getInput());
     }
@@ -65,9 +63,9 @@ public class InteractiveTest {
 
     @Test
     void testGetAnAttempt() {
-        Scanner scanner = new Scanner("фывфы\n \na");
-        Interactive interactiveWithScanner = new Interactive(scanner);
-        assertEquals("a", interactiveWithScanner.getAnAttempt());
+        Scanner scanner = new Scanner("тест\n \nб");
+        Interactive interactiveWithScanner = Interactive.withScanner(scanner);
+        assertEquals("б", interactiveWithScanner.getAnAttempt());
     }
 
     @AfterEach

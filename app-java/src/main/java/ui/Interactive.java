@@ -1,17 +1,21 @@
 package ui;
 
-import engine.WordHint;
+import models.WordHint;
 import java.util.Scanner;
 
 public class Interactive implements GameUI {
     private final Scanner scanner;
 
-    public Interactive(){
-        scanner = new Scanner(System.in);
+    private Interactive(Scanner scanner) {
+        this.scanner = scanner;
     }
 
-    public Interactive(Scanner scanner) {
-        this.scanner = scanner;
+    public static Interactive withoutScanner(){
+        return new Interactive(new Scanner(System.in));
+    }
+
+    public static Interactive withScanner(Scanner scanner) {
+        return new Interactive(scanner);
     }
 
     @Override
