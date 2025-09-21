@@ -1,6 +1,7 @@
 package engine;
 
 import config.AppConfig;
+import models.WordHint;
 import ui.GameUI;
 import ui.Interactive;
 import java.util.HashSet;
@@ -8,14 +9,12 @@ import java.util.Set;
 
 public class GameSession {
     private final WordHint word;
-    private final Set<Character> letters = new HashSet<>();
     private final int maxAttempts;
     private int attemptsUsed = 0;
     private final Set<Character> usedLetters = new HashSet<>();
     private final Set<Character> guessedLetters = new HashSet<>();
     private final GameUI gameUI;
     private boolean isWordGuessed = false;
-    private final boolean isInteractive;
     private final HangmanRenderer hangmanRenderer = new HangmanRenderer();
 
     public GameSession(WordHint word, GameUI gameUI) {
@@ -30,12 +29,6 @@ public class GameSession {
         this.word = word;
         this.gameUI = gameUI;
         this.maxAttempts = maxAttempts;
-
-        for (char ch : word.getWord().toCharArray()) {
-            letters.add(ch);
-        }
-
-        isInteractive = gameUI instanceof Interactive;
     }
 
     public void start() {
@@ -44,7 +37,7 @@ public class GameSession {
 
         while (!isGameOver()) {
             String input = input();
-            String result = isInteractive ? attemptInteractive(input) : attemptNonInteractive(input);
+            String result = (gameUI instanceof Interactive) ? attemptInteractive(input) : attemptNonInteractive(input);
             gameUI.showResult(result);
         }
         gameUI.showGameOver(isWordGuessed, word);
@@ -52,20 +45,22 @@ public class GameSession {
 
     private void showInitialInfo() {
         gameUI.showMessage("Максимальное количество попыток: " + maxAttempts);
-        if (isInteractive) gameUI.showMessage("Количество букв в загаданном слове: " + word.getLength());
+        gameUI.showMessage("Количество букв в загаданном слове: " + word.getLength());
         gameUI.showMessage("Если нужна подсказка, пиши - подсказка");
     }
 
 
 
     private String attemptInteractive(String input) {
+        Set<Character> lettersInWord = getLetters();
+
         char letter = input.charAt(0);
 
         if (guessedLetters.contains(letter) || usedLetters.contains(letter)) return getResultForInteractive();
 
-        if (letters.contains(letter)) {
+        if (lettersInWord.contains(letter)) {
             guessedLetters.add(letter);
-            if (guessedLetters.size() == letters.size()) isWordGuessed = true;
+            if (isWordGuessed()) isWordGuessed = true;
         } else {
             usedLetters.add(letter);
             attemptsUsed++;
@@ -122,4 +117,22 @@ public class GameSession {
         }
     }
 
+    private boolean isWordGuessed() {
+        for (char ch : word.getWord().toCharArray()) {
+            if (!guessedLetters.contains(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Set<Character> getLetters() {
+        Set<Character> lettersInWord = new HashSet<>();
+
+        for (char ch : word.getWord().toCharArray()) {
+            lettersInWord.add(ch);
+        }
+
+        return lettersInWord;
+    }
 }

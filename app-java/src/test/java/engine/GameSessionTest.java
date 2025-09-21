@@ -1,5 +1,6 @@
 package engine;
 
+import models.WordHint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.GameUI;
