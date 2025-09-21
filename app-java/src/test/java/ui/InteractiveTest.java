@@ -9,9 +9,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class InteractiveTest {
-    private Interactive interactive = Interactive.withoutScanner();
+    private Scanner mockScanner =  mock(Scanner.class);
+    private Interactive interactive = new Interactive(mockScanner);
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -21,7 +23,7 @@ public class InteractiveTest {
     @Test
     void testGetInput() {
         Scanner scanner = new Scanner("Lop aTa");
-        Interactive interactiveWithScanner = Interactive.withScanner(scanner);
+        Interactive interactiveWithScanner = new Interactive(scanner);
 
         assertEquals("lop ata", interactiveWithScanner.getInput());
     }
@@ -64,7 +66,7 @@ public class InteractiveTest {
     @Test
     void testGetAnAttempt() {
         Scanner scanner = new Scanner("тест\n \nб");
-        Interactive interactiveWithScanner = Interactive.withScanner(scanner);
+        Interactive interactiveWithScanner = new Interactive(scanner);
         assertEquals("б", interactiveWithScanner.getAnAttempt());
     }
 

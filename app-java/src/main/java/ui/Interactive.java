@@ -7,16 +7,8 @@ import java.util.Scanner;
 public class Interactive implements GameUI {
     private final Scanner scanner;
 
-    private Interactive(Scanner scanner) {
+    public Interactive(Scanner scanner) {
         this.scanner = scanner;
-    }
-
-    public static Interactive withoutScanner(){
-        return new Interactive(new Scanner(System.in));
-    }
-
-    public static Interactive withScanner(Scanner scanner) {
-        return new Interactive(scanner);
     }
 
     @Override

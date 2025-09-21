@@ -1,10 +1,10 @@
 package engine;
 
-import engine.*;
 import models.WordHint;
 import ui.GameUI;
 import ui.Interactive;
 import ui.NonInteractiveUI;
+import java.util.Scanner;
 
 public class GameLauncher {
 
@@ -26,14 +26,14 @@ public class GameLauncher {
     }
 
     private void startInteractive() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            GameUI ui = Interactive.withoutScanner();
+            GameUI ui = new Interactive(scanner);
             GameStarter starter = GameStarter.withGameUI(ui);
             starter.start();
 
             if (!ui.getInput("Сыграть еще раз? д/н").equals("д")) break;
         }
     }
-
 
 }
