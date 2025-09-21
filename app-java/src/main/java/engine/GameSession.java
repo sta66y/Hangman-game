@@ -85,18 +85,23 @@ public class GameSession {
     private String attemptNonInteractive(String input) {
         if (input.length() != word.getLength()) throw new IllegalArgumentException(
             "Длина загаданного слова не эквивалентна длине попытки");
+        Set<Character> letters = getLetters();
 
+        for (char ch : input.toCharArray()) {
+            if (letters.contains(ch))
+                guessedLetters.add(ch);
+        }
         attemptsUsed = maxAttempts;
-        return getResultForNonInteractive(input);
+        return getResultForNonInteractive();
     }
 
-    private String getResultForNonInteractive(String input) {
+    private String getResultForNonInteractive() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
-            sb.append(input.charAt(i) == word.getWord().charAt(i) ? word.getWord().charAt(i) : '*');
+        for (int i = 0; i < word.getWord().length(); i++) {
+            sb.append(guessedLetters.contains(word.getWord().charAt(i)) ? word.getWord().charAt(i) : '*');
         }
 
-        isWordGuessed = word.getWord().equals(input);
+        isWordGuessed = isWordGuessed();
         return sb.toString();
     }
 

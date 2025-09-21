@@ -115,7 +115,7 @@ public class GameSessionTest {
         GameSession session = new GameSession(word, mockUI);
         session.start();
 
-        verify(mockUI).showResult("****");
+        verify(mockUI).showResult("**l*");
         verify(mockUI).showGameOver(false, word);
     }
 
